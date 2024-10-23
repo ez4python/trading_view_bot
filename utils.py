@@ -14,6 +14,7 @@ response = scraper.get(url, headers=headers)
 
 
 def extract_earnings_info():
+    print('start')
     soup = BeautifulSoup(response.text, 'html.parser')
     earnings_data = []
     table = soup.find('table', id="earningsCalendarData")
@@ -57,7 +58,7 @@ def extract_earnings_info():
 
     # data recycling
     new_data = []
-    stock_data = extract_earnings_info()
+    stock_data = earnings_data
     indexes = []
     for stock in stock_data:
         if stock.get('theDay'):
@@ -79,5 +80,5 @@ def extract_earnings_info():
                     'stocks': stock_data[indexes[i] + 1:]
                 }
             )
-
+    print('end')
     return new_data
